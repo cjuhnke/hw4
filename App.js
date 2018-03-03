@@ -84,9 +84,15 @@ export default class App extends React.Component {
     //    currentTemperature, currentSummary)
     // 3. Forecast (forecastDay, forecastIcon, forecastTemperature)
     let forecast = []; // this will eventually hold the JSX elements for each day
+    let date = new Date();
+    let weekday = ["S", "M", "Tu", "W", "Th", "F", "Sa"];
     for (var i = 0; i < this.state.forecast.length; i++) {
+      let date = new Date();
+      date.setDate(date.getDate() + i);
+      date.setMinutes(date.getMinutes()-date.getTimezoneOffset());
       forecast.push(<
         View style={styles.forecastDay} key={i}>
+          <Text style={styles.forecastTemperature}>{weekday[date.getDay()]}</Text>
           <Text style={styles.forecastIcon}><Icon size={30} name={icon(this.state.forecast[i].icon)} /></Text>
           <Text style={styles.forecastTemperature}>{Math.round(this.state.forecast[i].temperatureHigh)+"°"}</Text>
         </View>)
